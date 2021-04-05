@@ -13,6 +13,9 @@ const rootReducer = (state = INITIAL_STATE, action) => {
     case "ADD_TO_CART":
       // add cart.item (name {quantity & price})
       // update cart.totalPrice
+      
+      // if cart updated
+
       return {...state, cart: {...state.cart, items: [...state.cart.items, action.newItem]}};
 
     case "UPDATE_TOTAL":

@@ -5,10 +5,13 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import ButtonBase from "@material-ui/core/ButtonBase";
 import Button from "@material-ui/core/Button";
-import TextField from '@material-ui/core/TextField';
-import MenuItem from "@material-ui/core/MenuItem";
 
-import {useDispatch} from 'react-redux'
+import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
+import AddToCart from "./AddToCart";
+
+import './CSS/SaleItem.css'
+import Quantity from "./Quantity";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,19 +38,20 @@ const useStyles = makeStyles((theme) => ({
 export default function SaleItem({ item, id }) {
   const classes = useStyles();
   const { name, price, description, image_url: imgURL } = item;
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  const [quantity, setQuantity] = React.useState('1');
-  const updateCartPrice = (totalPrice) => dispatch({type: "UPDATE_TOTAL", totalPrice})
+  const [quantity, setQuantity] = React.useState("1");
+  const updateCartPrice = (totalPrice) =>
+    dispatch({ type: "UPDATE_TOTAL", totalPrice });
 
-  const [cartUpdate, setCartUpdate] = React.useState({name, quantity, price})
+  const [cartUpdate, setCartUpdate] = React.useState({ name, quantity, price });
 
-  const addToCart = (newItem) => dispatch({type: "ADD_TO_CART", newItem})  
+  const addToCart = (newItem) => dispatch({ type: "ADD_TO_CART", newItem });
 
   const handleChange = (event) => {
-    const newQuantity = event.target.value
+    const newQuantity = event.target.value;
     setQuantity(newQuantity);
-    setCartUpdate({...cartUpdate, quantity: newQuantity})
+    setCartUpdate({ ...cartUpdate, quantity: newQuantity });
   };
 
   function titleCase(str) {
@@ -64,15 +68,12 @@ export default function SaleItem({ item, id }) {
 
     return str.join(" ");
   }
-
+  
   function pushToCart() {
-    
-    const updatePrice = quantity * price
-    console.log(cartUpdate)
-    updateCartPrice(updatePrice)
+    const updatePrice = quantity * price;
+    updateCartPrice(updatePrice);
 
-    addToCart(cartUpdate)
-
+    addToCart(cartUpdate);
   }
 
   return (
@@ -95,26 +96,17 @@ export default function SaleItem({ item, id }) {
                 </Typography>
               </Grid>
               <Grid item>
-                <form className={classes.root} noValidate autoComplete="off">
-                  <div>
-                    <TextField
-                      id="itemCount"
-                      select
-                      value={quantity}
-                      onChange={handleChange}
-                      helperText="Quantity"
-                    >
-                      {[1,2,3,4,5].map((val) => (
-                        <MenuItem key={val} value={val}>
-                          {val}
-                        </MenuItem>
-                      ))}
-                    </TextField>
-                  </div>
-                </form>
-                <Button variant="outlined" color="primary" onClick={pushToCart}>
-                  Add to Cart
-                </Button>
+                <Quantity handleChange={handleChange} quantity={quantity}/>
+                <AddToCart pushToCart={pushToCart} name={name} quantity={quantity} price={price}/>
+                <Link to={`/products/${id}`}>
+                  <Button
+                    size="small"
+                    variant="outlined"
+                    color="default"
+                  >
+                    View Details
+                  </Button>
+                </Link>
               </Grid>
             </Grid>
             <Grid item>

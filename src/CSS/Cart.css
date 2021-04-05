@@ -5,3 +5,18 @@
 #cartList {
     text-align: left;
 }
+
+#cartList p {
+    margin-left: 25px;
+    margin-bottom: 0;
+    font-weight: bold;
+}
+
+#cartList ul {
+    margin-top: 10px;
+}
+
+#subtotal {
+    text-align: right;
+    margin-right: 30px;
+}

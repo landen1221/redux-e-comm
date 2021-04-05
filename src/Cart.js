@@ -10,7 +10,7 @@ import { useSelector } from "react-redux";
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 275,
+    maxWidth: 375,
   },
   title: {
     fontSize: 18,
@@ -35,16 +35,18 @@ export default function Cart() {
         </Typography>
         <hr/>
         <Typography variant="body" id="cartList">
-          Items:
+          <p>Items:</p>
+          
           <ul>
+              {cart.items.length === 0 ? <li>Cart empty</li> : ""}
               {cart.items.map((item, idx) => {
-                  return <li key={idx}>{item.name} (Qty: {item.quantity}) -- ${item.price * item.quantity}</li>
+                  return <li key={idx}>${item.price * item.quantity} --{item.name} (Qty: {item.quantity})</li>
               })}
           </ul>
           <br />
-          Subtotal: ${cart.totalPrice}
+          <p id="subtotal">Subtotal: ${cart.totalPrice}</p>
         </Typography>
-        <br/>
+        <hr/>
         <Button size="small" variant="contained" color="primary">Checkout</Button>
       </CardContent>
         
