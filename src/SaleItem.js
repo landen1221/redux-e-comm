@@ -40,19 +40,13 @@ export default function SaleItem({ item, id }) {
   const { name, price, description, image_url: imgURL } = item;
   const dispatch = useDispatch();
 
-  const [quantity, setQuantity] = React.useState("1");
   const updateCartPrice = (totalPrice) =>
     dispatch({ type: "UPDATE_TOTAL", totalPrice });
 
-  const [cartUpdate, setCartUpdate] = React.useState({ name, quantity, price });
+  const [cartUpdate, setCartUpdate] = React.useState({ name, quantity: 1, price });
 
   const addToCart = (newItem) => dispatch({ type: "ADD_TO_CART", newItem });
 
-  const handleChange = (event) => {
-    const newQuantity = event.target.value;
-    setQuantity(newQuantity);
-    setCartUpdate({ ...cartUpdate, quantity: newQuantity });
-  };
 
   function titleCase(str) {
     if (str === "tv") {
@@ -70,9 +64,8 @@ export default function SaleItem({ item, id }) {
   }
   
   function pushToCart() {
-    const updatePrice = quantity * price;
+    const updatePrice = cartUpdate.quantity * price;
     updateCartPrice(updatePrice);
-
     addToCart(cartUpdate);
   }
 
@@ -96,8 +89,8 @@ export default function SaleItem({ item, id }) {
                 </Typography>
               </Grid>
               <Grid item>
-                <Quantity handleChange={handleChange} quantity={quantity}/>
-                <AddToCart pushToCart={pushToCart} name={name} quantity={quantity} price={price}/>
+                <Quantity setCartUpdate={setCartUpdate} cartUpdate={cartUpdate}/>
+                <AddToCart pushToCart={pushToCart} />
                 <Link to={`/products/${id}`}>
                   <Button
                     size="small"

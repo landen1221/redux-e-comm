@@ -1,12 +1,39 @@
 .ProductDetails {
     flex-grow: 1;
+    
 }
 .ProductDetails .Item {
-    background-color: whitesmoke;
+    background-color: white;
     width: 800px;
-    margin: 25px auto;
+    margin: auto;
     padding: 50px 25px;
     /* margin-left: auto;
     margin-right: auto; */
 }
 
+.ProductDetails img {
+    margin: 0;
+    padding: 0;
+}
+
+.ProductDetails form {
+    display: inline;
+}
+
+.ProductDetails button {
+    display: inline;
+    margin-left: 25px;
+    margin-top: 8px;
+}
+
+#details {
+    margin-bottom: 25px;
+}
+
+#backButton {
+    padding-left: 50px;
+}
+
+#cart {
+    padding-right: 25px;
+}

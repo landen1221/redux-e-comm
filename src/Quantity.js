@@ -1,10 +1,21 @@
 import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
 
-const Quantity = ({ handleChange, quantity }) => {
-  return(
+import {useState} from 'react'
+
+const Quantity = ({ setCartUpdate, cartUpdate }) => {
+  const [quantity, setQuantity] = useState("1");
+
+  const handleChange = (event) => {
+    const newQuantity = event.target.value;
+    setQuantity(newQuantity);
+
+    setCartUpdate({ ...cartUpdate, quantity: newQuantity });
+  };
+
+  return (
     <form noValidate autoComplete="off">
-      <div>
+
         <TextField
           id="itemCount"
           select
@@ -18,7 +29,7 @@ const Quantity = ({ handleChange, quantity }) => {
             </MenuItem>
           ))}
         </TextField>
-      </div>
+
     </form>
   );
 };

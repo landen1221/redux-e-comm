@@ -1,5 +1,6 @@
 const inventory = require("../data.json");
 
+// item = {name, quantity, price}
 const INITIAL_STATE = {
   cart: {
     items: [],
@@ -22,7 +23,8 @@ const rootReducer = (state = INITIAL_STATE, action) => {
         let x = state.cart.totalPrice
         return {...state, cart: {...state.cart, totalPrice: x + action.totalPrice}}
     case "REMOVE_FROM_CART":
-      return "removing item";
+        console.log('removing')
+      return {...state, cart: {...state.cart, items: [...state.cart.items.filter((item)=> item.name !== action.name)], totalPrice: 0}};
     default:
       return state;
   }

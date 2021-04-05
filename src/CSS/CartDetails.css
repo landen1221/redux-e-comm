@@ -1,0 +1,13 @@
+.CartDetails {
+    width: 500px;
+    background-color: whitesmoke;
+    margin: 15px auto;
+    padding: 5px
+}
+
+.CartDetails button {
+    padding: 0 5px;
+    margin-left: 10px;
+    background-color: maroon;
+    color: white;
+}
