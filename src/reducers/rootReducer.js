@@ -20,8 +20,6 @@ const rootReducer = (state = INITIAL_STATE, action) => {
       let update = false
       
       for (let i of state.cart.items) {
-        console.log(action.newItem.name)
-        console.log(i.name)
         if (action.newItem.name == i.name) {
             i.quantity = i.quantity+action.newItem.quantity
             newArray.push(i)
@@ -33,10 +31,7 @@ const rootReducer = (state = INITIAL_STATE, action) => {
 
       if (!update) {
           newArray.push(action.newItem)
-      }
-      
-      console.log(newArray)
-      
+      }      
 
       return {...state, cart: {...state.cart, items: [...newArray]}};
 
