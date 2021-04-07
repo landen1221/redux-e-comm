@@ -4,6 +4,7 @@ import ProductDetails from "./ProductDetails";
 import CartDetails from './CartDetails'
 
 function Routes() {
+  console.log(routes)
   return (
     <Switch>
       <Route exact path="/"><AllItems /></Route>
