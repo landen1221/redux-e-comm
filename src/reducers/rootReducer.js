@@ -3,7 +3,7 @@ const inventory = require("../data.json");
 // item = {name, quantity, price}
 const INITIAL_STATE = {
   cart: {
-    items: [{name: 'tv', quantity: 2, price: 250}],
+    items: [],
     totalPrice: 0,
   },
   inventory: inventory.products,
@@ -16,24 +16,31 @@ const rootReducer = (state = INITIAL_STATE, action) => {
       // update cart.totalPrice
       
       // if cart updated
-      const newArray = []
-      let update = false
-      
-      for (let i of state.cart.items) {
-        if (action.newItem.name == i.name) {
-            i.quantity = i.quantity+action.newItem.quantity
-            newArray.push(i)
-            update = true
-        } else {
-            newArray.push(i)
-        }
-      }
+      let newArray = [...state.cart.items]
 
-      if (!update) {
+      let obj = newArray.find(item => item.name === action.newItem.name)
+
+      if (obj) {  
+        obj = {...obj, quantity: obj.quantity + action.newItem.quantity}
+        newArray = [...newArray.filter(item => item.name !== action.newItem.name), obj]
+      } else {
           newArray.push(action.newItem)
-      }      
+      }
+            
+    //   for (let i of newArray) {
+    //     if (action.newItem.name === i.name) {
+    //         i.quantity = i.quantity+action.newItem.quantity
+    //         newArray.push(i)
+    //         update = true
+    //     } else {
+    //         newArray.push(i)
+    //     }
+    //   }
+    //   if (!update) {
+    //       newArray.push(action.newItem)
+    //   }      
 
-      return {...state, cart: {...state.cart, items: [...newArray]}};
+      return {...state, cart: {...state.cart, items: newArray}};
 
     case "UPDATE_TOTAL":
         let x = state.cart.totalPrice
